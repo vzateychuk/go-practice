@@ -24,8 +24,8 @@ pipeline {
             steps {
                 echo 'Installing dependencies'
                 sh 'go version'
-                sh 'go install golang.org/x/lint/golint/@latest'
-                sh 'go install github.com/vakenbolt/go-test-report/@latest'
+                sh 'go install golang.org/x/lint/golint@latest'
+                sh 'go install github.com/vakenbolt/go-test-report@latest'
             }
         }
         
