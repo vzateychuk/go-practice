@@ -43,7 +43,8 @@ pipeline {
                     sh 'go vet .'
                                        
                     echo 'Running go-test-report'
-                    sh 'go test -json | go-test-report -o reports/test_rep_vez.html'
+                    sh 'mkdir reports'
+                    sh 'go test -json | go-test-report -o reports/test_report.html'
                 }
             }
         }
