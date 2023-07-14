@@ -43,7 +43,7 @@ pipeline {
                     echo 'Running linting'
                     sh 'golint .'
                     echo 'Running test'
-                    sh 'cd test && go test -v'
+                    sh 'go test -json | go-test-report -o reports/test_report.html'
                 }
             }
         }
