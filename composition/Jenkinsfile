@@ -15,6 +15,10 @@ pipeline {
                 sh 'go get -u golang.org/x/lint/golint'
                 sh 'go get -u github.com/vakenbolt/go-test-report'
             }
+            steps {
+                echo 'CD composite project'
+                sh 'cd composition'
+            }
         }
         
         stage('Build') {
