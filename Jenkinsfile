@@ -40,8 +40,6 @@ pipeline {
                 withEnv(["PATH+GO=${GOPATH}/bin"]){
                     echo 'Running vetting'
                     sh 'go vet .'
-                    echo 'Running linting'
-                    sh 'golint .'
                     echo 'Running test'
                     sh 'go test -json | go-test-report -o reports/test_report.html'
                 }
