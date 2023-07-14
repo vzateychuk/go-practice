@@ -43,7 +43,7 @@ pipeline {
                     sh 'go vet .'
                                        
                     echo 'Running go-test-report'
-                    sh 'go test -json | go-test-report -o test_rep_vez.html'
+                    sh 'go test -json | go-test-report -o test_rep_vez.html -t "My Test Report"'
                 }
             }
         }
@@ -51,7 +51,7 @@ pipeline {
     }
     post {
         always {
-            echo 'Post Action (collect test reports)...'
+            echo 'Post Action (collect reports)...'
         }
     }  
 }
