@@ -22,12 +22,8 @@ pipeline {
 
         stage('Pre Test') {
             steps {
-                echo 'CD composite project'
-                sh 'cd composition'
-
                 echo 'Installing dependencies'
                 sh 'go version'
-                sh 'go get -u golang.org/x/lint/golint'
                 sh 'go get -u github.com/vakenbolt/go-test-report'
             }
         }
