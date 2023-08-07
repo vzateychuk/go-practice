@@ -1,0 +1,62 @@
+pipeline {
+    agent any
+
+    options {
+        skipStagesAfterUnstable()
+    }
+
+    stages {
+
+        stage('Buld Info') {
+            steps {
+                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+                echo "Build #${env.BUILD_NUMBER}, tag ${env.BUILD_TAG}"
+                echo "Jenkins URL ${env.JENKINS_URL}"
+                echo "Build URL ${env.BUILD_URL}"
+                echo "Job name: ${env.JOB_NAME}"
+                echo "Workspace: ${env.WORKSPACE}"
+            }
+        }
+
+        stage('Version') {
+            steps {
+                script {
+                    sh "go version"
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building..'
+                sh "go build ./..."
+                // archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+                sh 'go test ./...'
+            }
+        }
+
+        stage('Deploy') {
+            when {
+              expression {
+                currentBuild.result == null || currentBuild.result == 'SUCCESS' 
+              }
+            }
+            steps {
+                echo 'SUCCESS Deploying....'
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Post Action (collect test reports)...'
+            // junit 'library-a/build/reports/**/*'
+        }
+    }            
+}
